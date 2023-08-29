@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }) : ''
       debug(`try ${count+1}`, endpoint, headers['x-forwarded-for'])
       const response = await fetch(`https://${endpoint || 'www.bing.com'}/turing/conversation/create?${query}`, { method: 'GET', headers })
-      debug('status', headers, response.status, response.url)
+      debug('status', response.status, response.url)
       if (response.status === 200) {
         const json = await response.json().catch(e => {})
         if (!json?.conversationSignature) {

@@ -1,5 +1,4 @@
-FROM node:18
-
+FROM node:16
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -23,14 +22,17 @@ WORKDIR $HOME/app
 # where available (npm@5+)
 COPY --chown=user package*.json $HOME/app/
 
-RUN npm install
+COPY --chown=user .next $HOME/app/
+
+RUN npm install --verbose
 
 # Copy the current directory contents into the container at $HOME/app setting the owner to the user
-COPY --chown=user . $HOME/app/
+#COPY --chown=user . $HOME/app/
 
-RUN npm run build && rm -rf src
+#RUN npm run build && rm -rf src
 
 ENV PORT 7860
+
 EXPOSE 7860
 
 CMD npm start
